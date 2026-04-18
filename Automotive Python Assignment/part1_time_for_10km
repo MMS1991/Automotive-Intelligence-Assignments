@@ -1,0 +1,39 @@
+import matplotlib.pyplot as plt
+
+# 1. Full Dataset
+time = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 20.5]
+speed = [0, 40, 42, 37, 36, 31, 8, 32, 8, 26, 11, 0, 5, 15, 29, 42, 46, 37, 40, 25, 4, 0]
+
+time_for_10km = []
+
+# 2. Calculation Loop
+for s in speed:
+    if s == 0:
+        time_for_10km.append(0)   # stop condition
+    else:
+        # (Distance / Speed) * 60 minutes
+        time_for_10km.append((10 / s) * 60)
+
+# 3. Visualization
+plt.figure(figsize=(14, 8))
+plt.plot(time, time_for_10km, marker='o', color='purple', linewidth=1.5, label='Minutes to cover 10km')
+
+# --- NEW: Loop to add values on the plot ---
+for i, val in enumerate(time_for_10km):
+    if val == 0:
+        label = "Stop"
+    else:
+        label = f"{val:.1f}"
+    
+    # plt.text(x, y, text) places the value on the graph
+    # val + 3 pushes the text slightly above the marker
+    plt.text(time[i], val + 3, label, fontsize=9, ha='center', fontweight='bold', color='darkmagenta')
+
+plt.xlabel("Trip Time (minutes)", fontsize=12)
+plt.ylabel("Time required to travel 10 km (minutes)", fontsize=12)
+plt.title("Instantaneous Time to Travel 10 km vs Trip Time (Labeled)", fontsize=14)
+plt.grid(True, linestyle='--', alpha=0.6)
+plt.ylim(-10, max(time_for_10km) + 20) # Extra space at the top for labels
+plt.legend()
+
+plt.show()
